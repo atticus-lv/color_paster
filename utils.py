@@ -6,6 +6,7 @@ rules = {
     'HEX': r'^#?[a-fA-F\d]{6}$',
     'RGB': r'^[rR][gG][Bb][Aa]?[\(]([\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?),){2}[\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?),?[\s]*(0\.\d{1,2}|1|0)?[\)]{1}$',
     'HSL': r'^[Hh][Ss][Ll][\(](((([\d]{1,3}|[\d\%]{2,4})[\,]{0,1})[\s]*){3})[\)]',
+    'RGB_pure': r'^([\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?),){2}[\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?),?[\s]*(0\.\d{1,2}|1|0)?$',
     # 'HSV':'[Hh][Ss][Vv][\(](((([\d]{1,3}|[\d\%]{2,4})[\,]{0,1})[\s]*){3})[\)]'
 }
 
@@ -23,8 +24,8 @@ class ColorPicker():
 
         if rule == 'HEX':
             return self.Hex_to_RGBA(string)
-        elif rule == 'RGB':
-            return self.RGB_to_RGB(string)
+        elif rule in {'RGB', 'RGB_pure'}:
+            return self.RGB_to_RGB(string, has_prefix=True if rule == 'RGB' else False)
         elif rule == 'HSL':
             return self.HSL_to_RGB(string)
 
@@ -58,8 +59,8 @@ class ColorPicker():
 
         return tuple([self.sRGB_to_linearRGB(c / 0xff) for c in (r, g, b)] + [alpha])
 
-    def RGB_to_RGB(self, rgb_str, alpha=1):
-        rgb = [c / 255 for c in eval(rgb_str[3:])]
+    def RGB_to_RGB(self, rgb_str, alpha=1, has_prefix=True):
+        rgb = [c / 255 for c in eval(rgb_str[3:] if has_prefix else rgb_str)]
         rgb = [self.sRGB_to_linearRGB(c) for c in rgb]
 
         if len(rgb) == 3: rgb.append(alpha)

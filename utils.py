@@ -5,7 +5,7 @@ import colorsys
 rules = {
     'HEX': r'^#?[a-fA-F\d]{6}$',
     'RGB': r'^[rR][gG][Bb][Aa]?[\(]([\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?),){2}[\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?),?[\s]*(0\.\d{1,2}|1|0)?[\)]{1}$',
-    'HSL': r'^[Hh][Ss][Ll][\(](((([\d]{1,3}|[\d\%]{2,4})[\,]{0,1})[\s]*){3})[\)]',
+    # 'HSL': r'^[Hh][Ss][Ll][\(](((([\d]{1,3}|[\d\%]{2,4})[\,]{0,1})[\s]*){3})[\)]',
     'RGB_pure': r'^([\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?),){2}[\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?),?[\s]*(0\.\d{1,2}|1|0)?$',
     # 'HSV':'[Hh][Ss][Vv][\(](((([\d]{1,3}|[\d\%]{2,4})[\,]{0,1})[\s]*){3})[\)]'
 }
@@ -26,8 +26,8 @@ class ColorPicker():
             return self.Hex_to_RGBA(string)
         elif rule in {'RGB', 'RGB_pure'}:
             return self.RGB_to_RGB(string, has_prefix=True if rule == 'RGB' else False)
-        elif rule == 'HSL':
-            return self.HSL_to_RGB(string)
+        # elif rule == 'HSL':
+        #     return self.HSL_to_RGB(string)
 
     def match_rule(self):
         for k, v in rules.items():

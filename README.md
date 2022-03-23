@@ -1,5 +1,7 @@
 ## ColorPaster [Blender Addon]
 
+#### Now ColorPaster has been integrate into [Color Helper](https://github.com/atticus-lv/color_helper) , an all in one color palette controller
+
 > Convert three types of color in your clipboard and paste it to the color property (gamma correct)
 
 ![](res/img.png)
